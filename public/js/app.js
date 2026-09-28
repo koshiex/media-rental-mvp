@@ -40,7 +40,7 @@ function showLatency({ detail }) {
   if (!box) return;
   const ms = Math.round(detail.elapsed);
   box.className = `latency ${ms <= SLA_TARGET_MS ? 'latency-ok' : 'latency-bad'}`;
-  box.textContent = `Отклик API: ${ms} мс · цель ≤ ${SLA_TARGET_MS} мс`;
+  box.textContent = `Отклик: ${ms} мс · цель ≤ ${SLA_TARGET_MS} мс`;
 }
 
 function renderShell() {
@@ -55,7 +55,7 @@ function renderShell() {
           <span><b>МедиаПрокат</b><small>MVP · медиапространство</small></span>
         </a>
         <nav class="nav">${links}</nav>
-        <div class="sidebar-footer"><div class="latency" data-latency>Отклик API: —</div></div>
+        <div class="sidebar-footer"><div class="latency" data-latency>Отклик: —</div></div>
       </aside>
       <div class="main">
         <header class="topbar">

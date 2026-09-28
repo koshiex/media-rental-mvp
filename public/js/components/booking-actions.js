@@ -46,13 +46,18 @@ function returnModal(booking, done) {
       </fieldset>
       <p class="muted small">Выдано: ${(booking.issuedKit ?? booking.equipment.kit).join(', ')}</p>
       ${commentField('Комментарий', false, 'Что повреждено или чего не хватает')}
-      <label class="field"><span>Фото повреждения (необязательно)</span>
-        <input type="file" name="photo" accept="image/png,image/jpeg,image/webp"></label>
+      <div class="field"><span>Фото повреждения (необязательно)</span>
+        <label class="file-pick">
+          <input type="file" name="photo" class="visually-hidden" accept="image/png,image/jpeg,image/webp">
+          <span class="btn btn-ghost btn-sm">Выбрать фото</span>
+          <span class="muted small" data-file-name>Файл не выбран</span>
+        </label></div>
       <img class="photo-preview" data-preview alt="Предпросмотр фото" hidden>`,
     onMount: (form) => {
       form.photo.addEventListener('change', async () => {
         const preview = form.querySelector('[data-preview]');
         const [file] = form.photo.files;
+        form.querySelector('[data-file-name]').textContent = file ? file.name : 'Файл не выбран';
         photo = null;
         preview.hidden = true;
         if (!file) return;
