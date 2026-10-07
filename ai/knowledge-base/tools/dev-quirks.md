@@ -28,3 +28,16 @@ route guard for the previous role and redirects to that role's home page.
 `npm run seed` or `POST /api/demo/reset` (button on the sign-in screen) rebuilds the demo set relative
 to today. The reset endpoint is public by design for recording demos; the server binds to
 `127.0.0.1` by default.
+
+Seed dates are fixed at seed time. `src/server.js` seeds only an empty database, so a database
+seeded days ago keeps drifting: requests «на согласовании» get start dates in the past and overdue
+counts grow. Reseed before a demo; copy `data/media-rental.db` first if its state matters.
+
+## Headless Chromium (Playwright demos)
+
+- Date inputs follow the browser UI language, not `locale` of the context. Launch Chromium with
+  `--lang=ru-RU`, otherwise dates render as `mm/dd/yyyy`.
+- The native file input label comes from the browser's own strings, and the headless build shows
+  «Choose File» whatever the language. The return dialog therefore uses its own `.file-pick` label
+  with a visually hidden `<input type=file>` (`public/js/components/booking-actions.js`);
+  Playwright `set_input_files` still works on the hidden input.
